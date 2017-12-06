@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Kaart</title>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+          integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+            crossorigin=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  </head>
+  <body>
+    <div id="mapid" style="height: 75vh"></div>
+        {% block content %}
+<div id="hinneteLisamine">
+    <h1>Söögikohad</h1>
+        <table border="1">
+            <tr>
+                <th>Nimi</th>
+                <th>Eelroad</th>
+                <th>Supid</th>
+                <th>Praed</th>
+                <th>Magustoidud</th>
+                <th>Joogid</th>
+                <th>Kohvilaud</th>
+            </tr>
+            {% for item in soogikohad %}
+            <tr>
+                <td>{{item.nimi}}</td>
+                <td>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne1eelroad" type="button">1</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne2eelroad" type="button">2</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne3eelroad" type="button">3</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne4eelroad" type="button">4</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne5eelroad" type="button">5</button>
+                </td>
+                 <td>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne1supid" type="button">1</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne2supid" type="button">2</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne3supid" type="button">3</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne4supid" type="button">4</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne5supid" type="button">5</button>
+                </td>
+                 <td>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne1praed" type="button">1</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne2praed" type="button">2</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne3praed" type="button">3</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne4praed" type="button">4</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne5praed" type="button">5</button>
+                </td>
+                 <td>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne1magustoidud" type="button">1</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne2magustoidud" type="button">2</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne3magustoidud" type="button">3</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne4magustoidud" type="button">4</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne5magustoidud" type="button">5</button>
+                </td>
+                 <td>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne1joogid" type="button">1</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne2joogid" type="button">2</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne3joogid" type="button">3</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne4joogid" type="button">4</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne5joogid" type="button">5</button>
+                </td>
+                 <td>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne1kohvilaud" type="button">1</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne2kohvilaud" type="button">2</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne3kohvilaud" type="button">3</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne4kohvilaud" type="button">4</button>
+                    <button data-soogikohaid="{{ item.id }}" class="lisaHinne5kohvilaud" type="button">5</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+      </div>
+      <div id="kasutajaEelistused">
+          <h1>Eelistused</h1>
+        <table border="1">
+            <tr>
+                <th>Eelroad</th>
+                <th>Supid</th>
+                <th>Praed</th>
+                <th>Magustoidud</th>
+                <th>Joogid</th>
+                <th>Kohvilaud</th>
+            </tr>
+                <td><input type="number" id="eelroad" min="1" max="5"></td>
+                <td><input type="number" id="supid" min="1" max="5"></td>
+                <td><input type="number" id="praed" min="1" max="5"></td>
+                <td><input type="number" id="magustoidud" min="1" max="5"></td>
+                <td><input type="number" id="joogid" min="1" max="5"></td>
+                <td><input type="number" id="kohvilaud" min="1" max="5"></td>
+                <td><button class="naitaEelistused" type="button">Näita eelistused</button></td>
+        </table>
+        <ul id="eelistusedList"></ul>
+      </div>
+
+{% endblock %}
+        <script>
+        {% block jquery %}
+
+            var endpoint = '/api/data';
+            var nimi;
+            var hinneEelroad;
+            var hinneSupid;
+            var hinnePraed;
+            var hinneMagustoidud;
+            var hinneJoogid;
+            var hinneKohvilaud;
+            var hindajaid;
+
+            $.ajax({
+                method: "GET",
+                url: endpoint,
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (data) {
+                    for ( var i=0; i < data.length; ++i )
+                    {
+                        nimi = data[i].nimi;
+                        hindajaid = data[i].hindajaid;
+                        hinneEelroad = (data[i].eelroad / hindajaid).toFixed(1);
+                        hinneSupid = (data[i].supid / hindajaid).toFixed(1);
+                        hinnePraed = (data[i].praed / hindajaid).toFixed(1);
+                        hinneMagustoidud = (data[i].magustoidud / hindajaid).toFixed(1);
+                        hinneJoogid = (data[i].joogid / hindajaid).toFixed(1);
+                        hinneKohvilaud = (data[i].kohvilaud / hindajaid).toFixed(1);
+
+                        L.marker( [data[i].lat, data[i].lng] )
+                            .bindPopup('<h2>' + nimi + '</h2>' + '<ul><li>Eelroad: ' + hinneEelroad +
+                                '<li>Supid: ' + hinneSupid +
+                                '<li>Praed: ' + hinnePraed +
+                                '<li>Magustoidud: ' + hinneMagustoidud +
+                                '<li>Joogid: ' + hinneJoogid +
+                                '<li>Kohvilaud: ' + hinneKohvilaud)
+                            .addTo(mymap);
+                    }
+                    console.log(data);
+                },
+                // Kui päring ebaõnnestub, siis logime konsooli error'i
+                error: function (error_data) {
+                    console.log("error");
+                    console.log(error_data);
+                }
+            });
+
+            var mymap = L.map('mapid', {
+                center: [58.53, 25.33],
+                zoom: 8,
+                doubleClickZoom: false
+            });
+
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(mymap);
+
+            $('.naitaEelistused').click(function(){
+                var eelistusEelroog = document.getElementById('eelroad').value;
+                var eelistusSupp = document.getElementById('supid').value;
+                var eelistusPraad = document.getElementById('praed').value;
+                var eelistusMagus = document.getElementById('magustoidud').value;
+                var eelistusJook = document.getElementById('joogid').value;
+                var eelistusKohv = document.getElementById('kohvilaud').value;
+                var li = document.createElement('li');
+
+                li.appendChild(document.createTextNode('text'));
+
+                document.getElementById('eelistusedList').appendChild(li);
+
+            });
+
+            $('.lisaHinne1eelroad').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindaeelroad1', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne2eelroad').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindaeelroad2', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne3eelroad').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindaeelroad3', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne4eelroad').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindaeelroad4', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne5eelroad').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindaeelroad5', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne1supid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindasupid1', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne2supid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindasupid2', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne3supid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindasupid3', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne4supid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindasupid4', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne5supid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindasupid5', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne1praed').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindapraed1', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne2praed').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindapraed2', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne3praed').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindapraed3', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne4praed').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindapraed4', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne5praed').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindapraed5', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne1magustoidud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindamagus1', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne2magustoidud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindamagus2', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne3magustoidud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindamagus3', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne4magustoidud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindamagus4', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne5magustoidud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindamagus5', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne1joogid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindajoogid1', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne2joogid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindajoogid2', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne3joogid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindajoogid3', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne4joogid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindajoogid4', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne5joogid').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindajoogid5', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne1kohvilaud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindakohv1', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne2kohvilaud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindakohv2', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne3kohvilaud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindakohv3', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne4kohvilaud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindakohv4', function(){
+                    location.reload();
+
+                });
+            });
+
+            $('.lisaHinne5kohvilaud').click(function(){
+                var soogikohaid;
+                soogikohaid = $(this).attr("data-soogikohaid");
+                $.get('/'+soogikohaid+'/hindakohv5', function(){
+                    location.reload();
+
+                });
+            });
+
+        {% endblock %}
+        </script>
+  </body>
+</html>
